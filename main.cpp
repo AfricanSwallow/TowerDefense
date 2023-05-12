@@ -9,6 +9,7 @@
 #include "StartScene.hpp"
 #include "StageSelectScene.hpp"
 #include "WinScene.hpp"
+#include "SettingScene.hpp"
 
 int main(int argc, char **argv) {
 	Engine::LOG::SetConfig(true);
@@ -18,6 +19,7 @@ int main(int argc, char **argv) {
 	game.AddNewScene("lose", new LoseScene());
 	game.AddNewScene("win", new WinScene());
     game.AddNewScene("start-scene", new StartScene());
+    game.AddNewScene("setting", new SettingScene());
 	game.Start("start-scene", 60, 1600, 832);
 	return 0;
 }

@@ -3,6 +3,8 @@
 
 #include "Point.hpp"
 #include "Slider.hpp"
+#include "Collider.hpp"
+#include "GameEngine.hpp"
 
 Slider::Slider(float x, float y, float w, float h) :
 	ImageButton("stage-select/slider.png", "stage-select/slider-blue.png", x, y),
@@ -25,13 +27,26 @@ void Slider::SetOnValueChangedCallback(std::function<void(float value)> onValueC
 void Slider::SetValue(float value) {
 	// TODO 1 (4/7): Call 'OnValueChangedCallback' when value changed. Can imitate ImageButton's 'OnClickCallback'.
 	// Also, move the slider along the bar, to the corresponding position.
+	if (value != 0 && OnClickCallback)
+		OnClickCallback();
+	
+	Position.x = 100;	// temporary
+	Position.y = 100;	// temporary
 }
 void Slider::OnMouseDown(int button, int mx, int my) {
 	// TODO 1 (5/7): Set 'Down' to true if mouse is in the slider.
+	if ((button & 1) && mouseIn && Enabled) {
+		Down = true;
+	}
 }
 void Slider::OnMouseUp(int button, int mx, int my) {
 	// TODO 1 (6/7): Set 'Down' to false.
+	Down = false;
 }
 void Slider::OnMouseMove(int mx, int my) {
 	// TODO 1 (7/7): Clamp the coordinates and calculate the value. Call 'SetValue' when you're done.
+	mouseIn = Engine::Collider::IsPointInBitmap(Engine::Point((mx - Position.x) * GetBitmapWidth() / Size.x + Anchor.x * GetBitmapWidth(), (my - Position.y) * GetBitmapHeight() / Size.y + Anchor.y * GetBitmapHeight()), bmp);
+	if (!mouseIn || !Enabled) bmp = imgOut;
+	else bmp = imgIn;
+	Slider::SetValue(value);
 }

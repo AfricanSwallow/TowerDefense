@@ -6,7 +6,7 @@ LDLIBS = `pkg-config allegro-5 allegro_acodec-5 allegro_audio-5 allegro_color-5 
 
 exe = TowerDefense.out
 
-obj = Allegro5Exception.o AudioHelper.o Bullet.o Collider.o DirtyEffect.o Enemy.o ExplosionEffect.o GameEngine.o Group.o IControl.o IObject.o IScene.o Image.o ImageButton.o LOG.o Label.o LoseScene.o Plane.o PlugGunTurret.o PlayScene.o Point.o RedNormalEnemy.o Resources.o SettingScene.o Slider.o Sprite.o StageSelectScene.o StartScene.o Turret.o TurretButton.o WinScene.o WoodBullet.o main.o 
+obj = Allegro5Exception.o AudioHelper.o Bullet.o Collider.o DirtyEffect.o Enemy.o ExplosionEffect.o GameEngine.o Group.o IControl.o Image.o ImageButton.o IObject.o IScene.o Label.o LOG.o LoseScene.o main.o Plane.o PlayScene.o PlugGunTurret.o Point.o RedNormalEnemy.o Resources.o SettingScene.o Slider.o Sprite.o StageSelectScene.o StartScene.o Turret.o TurretButton.o WinScene.o WoodBullet.o
 
 
 

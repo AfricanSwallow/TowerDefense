@@ -8,4 +8,11 @@ public:
     PlugGunTurret(float x, float y);
     void CreateBullet() override;
 };
+
+class UnPlugGunTurret : public Turret {
+public:
+    static const int Price;
+    UnPlugGunTurret(float x, float y);
+    void CreateBullet() override;
+};
 #endif // PLUGGUNTURRET_HPP

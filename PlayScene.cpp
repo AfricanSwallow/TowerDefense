@@ -275,6 +275,7 @@ void PlayScene::OnKeyDown(int keyCode) {
 	// TODO 3 (5/5): Make the W key to create the new turret.
 	else if (keyCode == ALLEGRO_KEY_W) {
 		// Hotkey for new turret.
+		UIBtnClicked(1);
 	}
 	else if (keyCode >= ALLEGRO_KEY_0 && keyCode <= ALLEGRO_KEY_9) {
 		// Hotkey for Speed up.
@@ -359,6 +360,7 @@ void PlayScene::ConstructUI() {
 	// Buttons
 	ConstructButton(0, "play/turret-6.png", PlugGunTurret::Price);
 	// TODO 3 (3/5): Create a button to support constructing the new turret.
+	ConstructButton(1, "play/turret-7.png", UnPlugGunTurret::Price);
     
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
@@ -387,6 +389,9 @@ void PlayScene::UIBtnClicked(int id) {
 	if (id == 0 && money >= PlugGunTurret::Price) 
 		preview = new PlugGunTurret(0, 0);
 	// TODO 3 (4/5): On the new turret button callback, create the new turret.
+	if (id == 1 && money >= UnPlugGunTurret::Price) 
+		preview = new UnPlugGunTurret(0, 0);
+
 	if (!preview)
 		return;
 	preview->Position = Engine::GameEngine::GetInstance().GetMousePosition();

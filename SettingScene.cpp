@@ -53,7 +53,7 @@ void SettingScene::BackOnClick(int stage) {
 }
 
 void SettingScene::BGMSlideOnValueChanged(float value) {
-    AudioHelper::ChangeSampleVolume(bgmInstance, value);
+    // AudioHelper::ChangeSampleVolume(bgmInstance, value);
     AudioHelper::BGMVolume = value;
 }
 void SettingScene::SFXSlideOnValueChanged(float value) {

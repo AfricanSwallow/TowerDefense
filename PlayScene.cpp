@@ -7,6 +7,7 @@
 #include <queue>
 #include <string>
 #include <memory>
+#include <iostream>
 
 #include "AudioHelper.hpp"
 #include "DirtyEffect.hpp"
@@ -22,6 +23,7 @@
 // Enemy
 #include "RedNormalEnemy.hpp"
 #include "PlayScene.hpp"
+#include "WinScene.hpp"
 #include "Resources.hpp"
 #include "Sprite.hpp"
 #include "Turret.hpp"
@@ -136,16 +138,17 @@ void PlayScene::Update(float deltaTime) {
 		if (enemyWaveData.empty()) {
 			if (EnemyGroup->GetObjects().empty()) {
 				// Free resources.
-				delete TileMapGroup;
-				delete GroundEffectGroup;
-				delete DebugIndicatorGroup;
-				delete TowerGroup;
-				delete EnemyGroup;
-				delete BulletGroup;
-				delete EffectGroup;
-				delete UIGroup;
-				delete imgTarget;
-                Engine::GameEngine::GetInstance().ChangeScene("win-scene");
+				// delete TileMapGroup;
+				// delete GroundEffectGroup;
+				// delete DebugIndicatorGroup;
+				// delete TowerGroup;
+				// delete EnemyGroup;
+				// delete BulletGroup;
+				// delete EffectGroup;
+				// delete UIGroup;
+				// delete imgTarget;
+				Group::Clear();
+                Engine::GameEngine::GetInstance().ChangeScene("win");
 			}
 			continue;
 		}
@@ -300,7 +303,7 @@ void PlayScene::OnKeyDown(int keyCode) {
 	}
 }
 void PlayScene::Hit() {
-	UILives->Text = std::string("Life ") + std::to_string(lives--);
+	UILives->Text = std::string("Life ") + std::to_string(--lives);
 	if (lives <= 0) {
 		Engine::GameEngine::GetInstance().ChangeScene("lose");
 	}
@@ -369,7 +372,7 @@ void PlayScene::ConstructUI() {
 	// Buttons
 	ConstructButton(0, "play/turret-6.png", PlugGunTurret::Price);
 	// TODO 3 (3/5): Create a button to support constructing the new turret.
-	ConstructButton(1, "play/turret-7.png", UnPlugGunTurret::Price);
+	ConstructButton(1, "play/turret-1.png", UnPlugGunTurret::Price);
     
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;

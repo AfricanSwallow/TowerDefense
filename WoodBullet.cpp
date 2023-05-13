@@ -23,7 +23,7 @@ void WoodBullet::OnExplode(Enemy* enemy) {
 }
 
 YellowBullet::YellowBullet(Engine::Point position, Engine::Point forwardDirection, float rotation, Turret* parent) :
-    Bullet("play/bullet-7.png", 300, 2, position, forwardDirection, rotation - ALLEGRO_PI / 2, parent) {
+    Bullet("play/bullet-6.png", 300, 4, position, forwardDirection, rotation - ALLEGRO_PI / 2, parent) {
     // TODO 3 (2/5): You can imitate the 2 files: 'WoodBullet.hpp', 'WoodBullet.cpp' to create a new bullet.
 }
 void YellowBullet::OnExplode(Enemy* enemy) {

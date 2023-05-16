@@ -147,7 +147,6 @@ void PlayScene::Update(float deltaTime) {
 				// delete EffectGroup;
 				// delete UIGroup;
 				// delete imgTarget;
-				Group::Clear();
                 Engine::GameEngine::GetInstance().ChangeScene("win");
 			}
 			continue;

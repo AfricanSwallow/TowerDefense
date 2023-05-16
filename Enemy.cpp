@@ -38,9 +38,6 @@ Enemy::Enemy(std::string img, float x, float y, float radius, float speed, float
 }
 void Enemy::Hit(float damage) {
 	hp -= damage;
-	if (hp < 3 && damage == 4) {
-		Slow(0.5, 2);
-	}
 	if (hp <= 0) {
 		OnExplode();
 		// Remove all turret's reference to target.

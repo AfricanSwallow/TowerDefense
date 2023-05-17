@@ -14,9 +14,9 @@ public:
     void OnExplode(Enemy* enemy) override;
 };
 
-class YellowBullet : public Bullet {
+class FireBullet : public Bullet {
 public:
-    explicit YellowBullet(Engine::Point position, Engine::Point forwardDirection, float rotation, Turret* parent);
+    explicit FireBullet(Engine::Point position, Engine::Point forwardDirection, float rotation, Turret* parent);
     void OnExplode(Enemy* enemy) override;
 	void Update(float deltaTime) override;
 };

@@ -25,11 +25,11 @@ RedNormalEnemy::RedNormalEnemy(int x, int y) : Enemy("play/dice-1.png", x, y, 25
     // TODO 2 (1/3): You can imitate the 2 files: 'RedNormalEnemy.hpp', 'RedNormalEnemy.cpp' to create a new enemy.
 }
 
-GreenNormalEnemy::GreenNormalEnemy(int x, int y) : Enemy("play/dice-2.png", x, y, 25, 60, 7, 5) {
+Dice_2::Dice_2(int x, int y) : Enemy("play/dice-2.png", x, y, 25, 60, 7, 5) {
     // TODO 2 (1/3): You can imitate the 2 files: 'RedNormalEnemy.hpp', 'RedNormalEnemy.cpp' to create a new enemy.
 }
 
-void GreenNormalEnemy::OnExplode() {
+void Dice_2::OnExplode() {
 	getPlayScene()->EffectGroup->AddNewObject(new ExplosionEffect(Position.x, Position.y));
 	std::random_device dev;
 	std::mt19937 rng(dev());

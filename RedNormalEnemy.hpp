@@ -7,9 +7,9 @@ public:
     RedNormalEnemy(int x, int y);
 };
 
-class GreenNormalEnemy : public Enemy {
+class Dice_2 : public Enemy {
 public:
-    GreenNormalEnemy(int x, int y);
+    Dice_2(int x, int y);
     void OnExplode() override;
 };
 #endif // REDNORMALENEMY_HPP

@@ -23,18 +23,18 @@ void WoodBullet::OnExplode(Enemy* enemy) {
     getPlayScene()->GroundEffectGroup->AddNewObject(new DirtyEffect("play/dirty-1.png", dist(rng), enemy->Position.x, enemy->Position.y));
 }
 
-YellowBullet::YellowBullet(Engine::Point position, Engine::Point forwardDirection, float rotation, Turret* parent) :
+FireBullet::FireBullet(Engine::Point position, Engine::Point forwardDirection, float rotation, Turret* parent) :
     Bullet("play/bullet-6.png", 300, 4, position, forwardDirection, rotation - ALLEGRO_PI / 2, parent) {
     // TODO 3 (2/5): You can imitate the 2 files: 'WoodBullet.hpp', 'WoodBullet.cpp' to create a new bullet.
 }
-void YellowBullet::OnExplode(Enemy* enemy) {
+void FireBullet::OnExplode(Enemy* enemy) {
     std::random_device dev;
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> dist(2, 5);
     getPlayScene()->GroundEffectGroup->AddNewObject(new DirtyEffect("play/dirty-1.png", dist(rng), enemy->Position.x, enemy->Position.y));
 }
 
-void YellowBullet::Update(float deltaTime) {
+void FireBullet::Update(float deltaTime) {
 	Sprite::Update(deltaTime);
 	PlayScene* scene = getPlayScene();
 	// Can be improved by Spatial Hash, Quad Tree, ...

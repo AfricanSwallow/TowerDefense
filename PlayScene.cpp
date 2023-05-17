@@ -166,7 +166,7 @@ void PlayScene::Update(float deltaTime) {
 		// The format is "[EnemyId] [TimeDelay] [Repeat]".
 		// TODO 2 (3/3): Enable the creation of the new enemy.
 		case 2:
-			EnemyGroup->AddNewObject(enemy = new GreenNormalEnemy(SpawnCoordinate.x, SpawnCoordinate.y));
+			EnemyGroup->AddNewObject(enemy = new Dice_2(SpawnCoordinate.x, SpawnCoordinate.y));
 			break;
 		default:
 			continue;
@@ -371,7 +371,7 @@ void PlayScene::ConstructUI() {
 	// Buttons
 	ConstructButton(0, "play/turret-6.png", PlugGunTurret::Price);
 	// TODO 3 (3/5): Create a button to support constructing the new turret.
-	ConstructButton(1, "play/turret-1.png", UnPlugGunTurret::Price);
+	ConstructButton(1, "play/turret-1.png", MachineGunTurret::Price);
     
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
@@ -400,8 +400,8 @@ void PlayScene::UIBtnClicked(int id) {
 	if (id == 0 && money >= PlugGunTurret::Price) 
 		preview = new PlugGunTurret(0, 0);
 	// TODO 3 (4/5): On the new turret button callback, create the new turret.
-	if (id == 1 && money >= UnPlugGunTurret::Price) 
-		preview = new UnPlugGunTurret(0, 0);
+	if (id == 1 && money >= MachineGunTurret::Price) 
+		preview = new MachineGunTurret(0, 0);
 
 	if (!preview)
 		return;

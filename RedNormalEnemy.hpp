@@ -10,5 +10,6 @@ public:
 class GreenNormalEnemy : public Enemy {
 public:
     GreenNormalEnemy(int x, int y);
+    void OnExplode() override;
 };
 #endif // REDNORMALENEMY_HPP

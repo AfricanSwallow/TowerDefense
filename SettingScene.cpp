@@ -30,7 +30,7 @@ void SettingScene::Initialize() {
     sliderSFX->SetOnValueChangedCallback(std::bind(&SettingScene::SFXSlideOnValueChanged, this, std::placeholders::_1));
     AddNewControlObject(sliderSFX);
     AddNewObject(new Engine::Label("SFX: ", "pirulen.ttf", 28, 40 + halfW - 60 - 95, halfH + 50, 255, 255, 255, 255, 0.5, 0.5));
-	// bgmInstance = AudioHelper::PlaySample("select.ogg", true, AudioHelper::BGMVolume);   // cannot find select.ogg
+	bgmInstance = AudioHelper::PlaySample("select.ogg", true, AudioHelper::BGMVolume);   // cannot find select.ogg
     sliderBGM->SetValue(AudioHelper::BGMVolume);
     sliderSFX->SetValue(AudioHelper::SFXVolume);
 
@@ -42,6 +42,7 @@ void SettingScene::Initialize() {
 	AddNewObject(new Engine::Label("Back", "pirulen.ttf", 48, halfW, halfH * 7 / 4, 0, 0, 0, 255, 0.5, 0.5));
 }
 void SettingScene::Terminate() {
+	AudioHelper::StopSample(bgmInstance);
 	IScene::Terminate();
 }
 void SettingScene::Update(float deltaTime) {

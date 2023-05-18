@@ -52,7 +52,7 @@ void PlayScene::Initialize() {
 	ticks = 0;
 	deathCountDown = -1;
 	lives = 10;
-	money = 150;
+	money = 400;
 	SpeedMult = 1;
 	// Add groups from bottom to top.
 	AddNewObject(TileMapGroup = new Group());
@@ -255,14 +255,13 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 
 			mapState[y][x] = TILE_OCCUPIED;
 			OnMouseMove(mx, my);
-		} 
-		else {
-			for (auto& it : TowerGroup->GetObjects()) {
-				Turret* turret = dynamic_cast<Turret*>(it);
-				if (Engine::Collider::IsCircleOverlap(preview->Position,preview->CollisionRadius, turret->Position, turret->CollisionRadius)) {
-					if (turret->id == MachineGunTurret::ID && preview->id == MachineGunTurret::ID) {
-						if (!preview)
-							return;
+		} else {
+			if (!preview) 
+				return;
+			if (preview->id == MachineGunTurret::ID) {
+				for (auto& it : TowerGroup->GetObjects()) {
+					Turret* turret = dynamic_cast<Turret*>(it);
+					if (x == ((turret->Position.x - BlockSize / 2) / BlockSize) && y == ((turret->Position.y - BlockSize / 2) / BlockSize) && turret->id == MachineGunTurret::ID) {
 						// Check if valid.
 						if (!CheckSpaceValid(x, y)) {
 							Engine::Sprite* sprite;
@@ -270,7 +269,6 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 							sprite->Rotation = 0;
 							return;
 						}
-						
 						// Remove Preview.
 						preview->GetObjectIterator()->first = false;
 						UIGroup->RemoveObject(preview->GetObjectIterator());
@@ -292,6 +290,7 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 						preview = nullptr;
 						mapState[y][x] = TILE_OCCUPIED;
 						OnMouseMove(mx, my);
+						break;
 					}
 				}
 			}

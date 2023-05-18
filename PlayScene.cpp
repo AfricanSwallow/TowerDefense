@@ -10,11 +10,13 @@
 #include <iostream>
 
 #include "AudioHelper.hpp"
+#include "Collider.hpp"
 #include "DirtyEffect.hpp"
 #include "Enemy.hpp"
 #include "GameEngine.hpp"
 #include "Group.hpp"
 #include "IObject.hpp"
+#include "IScene.hpp"
 #include "Image.hpp"
 #include "Label.hpp"
 // Turret
@@ -253,6 +255,46 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 
 			mapState[y][x] = TILE_OCCUPIED;
 			OnMouseMove(mx, my);
+		} 
+		else {
+			for (auto& it : TowerGroup->GetObjects()) {
+				Turret* turret = dynamic_cast<Turret*>(it);
+				if (Engine::Collider::IsCircleOverlap(preview->Position,preview->CollisionRadius, turret->Position, turret->CollisionRadius)) {
+					if (turret->id == MachineGunTurret::ID && preview->id == MachineGunTurret::ID) {
+						if (!preview)
+							return;
+						// Check if valid.
+						if (!CheckSpaceValid(x, y)) {
+							Engine::Sprite* sprite;
+							GroundEffectGroup->AddNewObject(sprite = new DirtyEffect("play/target-invalid.png", 1, x * BlockSize + BlockSize / 2, y * BlockSize + BlockSize / 2));
+							sprite->Rotation = 0;
+							return;
+						}
+						
+						// Remove Preview.
+						preview->GetObjectIterator()->first = false;
+						UIGroup->RemoveObject(preview->GetObjectIterator());
+						UIGroup->RemoveObject(turret->GetObjectIterator());
+						// Construct real turret.
+						preview->Position.x = x * BlockSize + BlockSize / 2;
+						preview->Position.y = y * BlockSize + BlockSize / 2;
+						preview->Enabled = true;
+						preview->Preview = false;
+						preview->Tint = al_map_rgba(255, 255, 255, 255);
+						TwoGunTurret* new_turret = new TwoGunTurret(preview->Position.x, preview->Position.y);
+						TowerGroup->AddNewObject(new_turret);
+						// Purchase.
+						EarnMoney(-new_turret->GetPrice());
+
+						// To keep responding when paused.
+						preview->Update(0);
+						// Remove Preview.
+						preview = nullptr;
+						mapState[y][x] = TILE_OCCUPIED;
+						OnMouseMove(mx, my);
+					}
+				}
+			}
 		}
 	}
 }

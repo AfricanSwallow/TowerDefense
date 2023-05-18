@@ -5,6 +5,7 @@
 class PlugGunTurret : public Turret {
 public:
     static const int Price;
+    static const int ID;
     PlugGunTurret(float x, float y);
     void CreateBullet() override;
 };
@@ -12,6 +13,7 @@ public:
 class MachineGunTurret : public Turret {
 public:
     static const int Price;
+    static const int ID;
     MachineGunTurret(float x, float y);
     void CreateBullet() override;
 };
@@ -19,6 +21,7 @@ public:
 class TwoGunTurret : public Turret {
 public:
     static const int Price;
+    static const int ID;
     TwoGunTurret(float x, float y);
     void CreateBullet() override;
 };

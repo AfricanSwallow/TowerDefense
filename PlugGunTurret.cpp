@@ -11,9 +11,10 @@
 #include "ExplosionEffect.hpp"
 
 const int PlugGunTurret::Price = 40;
+const int PlugGunTurret::ID = 0;
 PlugGunTurret::PlugGunTurret(float x, float y) :
     // TODO 3 (1/5): You can imitate the 2 files: 'PlugGunTurret.hpp', 'PlugGunTurret.cpp' to create a new turret.
-    Turret("play/tower-base.png", "play/turret-6.png", x, y, 200, Price, 1.5) {
+    Turret("play/tower-base.png", "play/turret-6.png", x, y, 200, Price, 1.5, ID) {
     // Move center downward, since we the turret head is slightly biased upward
     Anchor.y += 8.0f / GetBitmapHeight();
 }
@@ -28,10 +29,11 @@ void PlugGunTurret::CreateBullet() {
     AudioHelper::PlayAudio("gun.wav");
 }
 
-const int MachineGunTurret::Price = 70;
+const int MachineGunTurret::Price = 50;
+const int MachineGunTurret::ID = 1;
 MachineGunTurret::MachineGunTurret(float x, float y) :
     // TODO 3 (1/5): You can imitate the 2 files: 'PlugGunTurret.hpp', 'PlugGunTurret.cpp' to create a new turret.
-    Turret("play/tower-base.png", "play/turret-1.png", x, y, 400, Price, 1.5) {
+    Turret("play/tower-base.png", "play/turret-1.png", x, y, 400, Price, 1.5, ID) {
     // Move center downward, since we the turret head is slightly biased upward
     Anchor.y += 8.0f / GetBitmapHeight();
 }
@@ -46,10 +48,11 @@ void MachineGunTurret::CreateBullet() {
     AudioHelper::PlayAudio("gun.wav");
 }
 
-const int TwoGunTurret::Price = 100;
+const int TwoGunTurret::Price = 60;
+const int TwoGunTurret::ID = 2;
 TwoGunTurret::TwoGunTurret(float x, float y) :
     // TODO 3 (1/5): You can imitate the 2 files: 'PlugGunTurret.hpp', 'PlugGunTurret.cpp' to create a new turret.
-    Turret("play/tower-base.png", "play/turret-2.png", x, y, 400, Price, 1.5) {
+    Turret("play/tower-base.png", "play/turret-2.png", x, y, 400, Price, 1.5, ID) {
     // Move center downward, since we the turret head is slightly biased upward
     Anchor.y += 8.0f / GetBitmapHeight();
 }

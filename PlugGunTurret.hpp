@@ -32,5 +32,6 @@ public:
     static const int ID;
     ElephantTurret(float x, float y);
     void CreateBullet() override;
+    void Update(float deltaTime) override;
 };
 #endif // PLUGGUNTURRET_HPP

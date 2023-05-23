@@ -20,4 +20,11 @@ public:
     void OnExplode(Enemy* enemy) override;
 	void Update(float deltaTime) override;
 };
+
+class VirusBullet : public Bullet {
+public:
+    explicit VirusBullet(Engine::Point position, Engine::Point forwardDirection, float rotation, Turret* parent);
+    void OnExplode(Enemy* enemy) override;
+	void Update(float deltaTime) override;
+};
 #endif // WOODBULLET_HPP

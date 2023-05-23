@@ -9,6 +9,7 @@
 #include "PlayScene.hpp"
 #include "Point.hpp"
 #include "ExplosionEffect.hpp"
+#include "Enemy.hpp"
 
 const int PlugGunTurret::Price = 40;
 const int PlugGunTurret::ID = 0;
@@ -68,16 +69,34 @@ void TwoGunTurret::CreateBullet() {
 const int ElephantTurret::Price = 30;
 const int ElephantTurret::ID = 3;
 ElephantTurret::ElephantTurret(float x, float y) :
-    Turret("play/tower-base.png", "play/elephant.png", x, y, 400, Price, 1.5, ID) {
+    Turret("play/tower-base.png", "play/elephant.png", x, y, 150, Price, 1.5, ID) {
     // Move center downward, since we the turret head is slightly biased upward
     Anchor.y += 8.0f / GetBitmapHeight();
 }
 void ElephantTurret::CreateBullet() {
     Engine::Point diff = Engine::Point(cos(Rotation - ALLEGRO_PI / 2), sin(Rotation - ALLEGRO_PI / 2));
     float rotation = atan2(diff.y, diff.x);
-    Engine::Point normalized = diff.Normalize();
+    Engine::Point up = Engine::Point(0, -1);
+    Engine::Point down = Engine::Point(0, 1);
+    Engine::Point right = Engine::Point(1, 0);
+    Engine::Point left = Engine::Point(-1, 0);
     // Change bullet position to the front of the gun barrel.
-    getPlayScene()->BulletGroup->AddNewObject(new FireBullet(Position + normalized * 36, diff, rotation, this));
-    getPlayScene()->EffectGroup->AddNewObject(new ShootEffect(Position + normalized * 36, diff, rotation, this));
-    AudioHelper::PlayAudio("gun.wav");
+    getPlayScene()->BulletGroup->AddNewObject(new VirusBullet(Position + up * CollisionRadius, left, rotation, this));
+    getPlayScene()->BulletGroup->AddNewObject(new VirusBullet(Position + down * CollisionRadius, right, rotation, this));
+    getPlayScene()->BulletGroup->AddNewObject(new VirusBullet(Position + right * CollisionRadius, up, rotation, this));
+    getPlayScene()->BulletGroup->AddNewObject(new VirusBullet(Position + left * CollisionRadius, down, rotation, this));
+}
+
+void ElephantTurret::Update(float deltaTime) {
+	Sprite::Update(deltaTime);
+	PlayScene* scene = getPlayScene();
+	imgBase.Position = Position;
+	imgBase.Tint = Tint;
+	if (!Enabled)
+		return;
+	
+    if (bullet_num == 0) {
+        ElephantTurret::CreateBullet();
+        bullet_num = 4;
+    }
 }

@@ -226,7 +226,7 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 	const int x = mx / BlockSize;
 	const int y = my / BlockSize;
 	if (button & 1) {
-		if (mapState[y][x] != TILE_OCCUPIED) {
+		if (mapState[y][x] != TILE_OCCUPIED && preview->id != ShovelTurret::ID) {
 			if (!preview)
 				return;
 			// Check if valid.
@@ -276,9 +276,6 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 						// Construct real turret.
 						preview->Position.x = x * BlockSize + BlockSize / 2;
 						preview->Position.y = y * BlockSize + BlockSize / 2;
-						preview->Enabled = true;
-						preview->Preview = false;
-						preview->Tint = al_map_rgba(255, 255, 255, 255);
 						TwoGunTurret* new_turret = new TwoGunTurret(preview->Position.x, preview->Position.y);
 						TowerGroup->AddNewObject(new_turret);
 						// Purchase.
@@ -308,25 +305,19 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 						// Remove Preview.
 						EarnMoney(turret->GetPrice() / 2);
 						preview->GetObjectIterator()->first = false;
-						UIGroup->RemoveObject(preview->GetObjectIterator());
 						UIGroup->RemoveObject(turret->GetObjectIterator());
-						// Construct real turret.
-						preview->Position.x = x * BlockSize + BlockSize / 2;
-						preview->Position.y = y * BlockSize + BlockSize / 2;
-						preview->Enabled = true;
-						preview->Preview = false;
-						preview->Tint = al_map_rgba(255, 255, 255, 255);
-						// Purchase.
 
 						// To keep responding when paused.
 						preview->Update(0);
-						// Remove Preview.
-						preview = nullptr;
+						
 						mapState[y][x] = TILE_FLOOR;
 						OnMouseMove(mx, my);
 						break;
 					}
 				}
+				UIGroup->RemoveObject(preview->GetObjectIterator());
+				// Remove Preview.
+				preview = nullptr;
 			}
 		}
 	}

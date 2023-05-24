@@ -294,6 +294,40 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 					}
 				}
 			}
+			else if (preview->id == ShovelTurret::ID) {
+				for (auto& it : TowerGroup->GetObjects()) {
+					Turret* turret = dynamic_cast<Turret*>(it);
+					if (x == ((turret->Position.x - BlockSize / 2) / BlockSize) && y == ((turret->Position.y - BlockSize / 2) / BlockSize)) {
+						// Check if valid.
+						if (!CheckSpaceValid(x, y)) {
+							Engine::Sprite* sprite;
+							GroundEffectGroup->AddNewObject(sprite = new DirtyEffect("play/target-invalid.png", 1, x * BlockSize + BlockSize / 2, y * BlockSize + BlockSize / 2));
+							sprite->Rotation = 0;
+							return;
+						}
+						// Remove Preview.
+						EarnMoney(turret->GetPrice() / 2);
+						preview->GetObjectIterator()->first = false;
+						UIGroup->RemoveObject(preview->GetObjectIterator());
+						UIGroup->RemoveObject(turret->GetObjectIterator());
+						// Construct real turret.
+						preview->Position.x = x * BlockSize + BlockSize / 2;
+						preview->Position.y = y * BlockSize + BlockSize / 2;
+						preview->Enabled = true;
+						preview->Preview = false;
+						preview->Tint = al_map_rgba(255, 255, 255, 255);
+						// Purchase.
+
+						// To keep responding when paused.
+						preview->Update(0);
+						// Remove Preview.
+						preview = nullptr;
+						mapState[y][x] = TILE_FLOOR;
+						OnMouseMove(mx, my);
+						break;
+					}
+				}
+			}
 		}
 	}
 }

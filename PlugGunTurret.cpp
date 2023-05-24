@@ -54,7 +54,7 @@ void MachineGunTurret::CreateBullet() {
 }
 
 const int TwoGunTurret::Price = 60;
-const int TwoGunTurret::ID = 2;
+const int TwoGunTurret::ID = 20;
 TwoGunTurret::TwoGunTurret(float x, float y) :
     Turret("play/tower-base.png", "play/turret-2.png", x, y, 400, Price, 1.5, ID) {
     // Move center downward, since we the turret head is slightly biased upward
@@ -73,7 +73,7 @@ void TwoGunTurret::CreateBullet() {
 }
 
 const int ElephantTurret::Price = 30;
-const int ElephantTurret::ID = 3;
+const int ElephantTurret::ID = 2;
 ElephantTurret::ElephantTurret(float x, float y) :
     Turret("play/tower-base.png", "play/elephant.png", x, y, 150, Price, 1.5, ID) {
     // Move center downward, since we the turret head is slightly biased upward
@@ -108,7 +108,7 @@ void ElephantTurret::Update(float deltaTime) {
 }
 
 const int ShovelTurret::Price = 0;
-const int ShovelTurret::ID = 4;
+const int ShovelTurret::ID = 3;
 ShovelTurret::ShovelTurret(float x, float y) :
     // TODO 3 (1/5): You can imitate the 2 files: 'PlugGunTurret.hpp', 'PlugGunTurret.cpp' to create a new turret.
     Turret("play/tower-base.png", "play/shovel.png", x, y, 200, Price, 1.5, ID) {
@@ -132,7 +132,7 @@ void ShovelTurret::Draw() const{
 }
 
 const int ShifterTurret::Price = 0;
-const int ShifterTurret::ID = 5;
+const int ShifterTurret::ID = 4;
 ShifterTurret::ShifterTurret(float x, float y) :
     // TODO 3 (1/5): You can imitate the 2 files: 'PlugGunTurret.hpp', 'PlugGunTurret.cpp' to create a new turret.
     Turret("play/tower-base.png", "play/shifter.png", x, y, 200, Price, 1.5, ID) {

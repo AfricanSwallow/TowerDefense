@@ -41,5 +41,6 @@ public:
     static const int ID;
     ShovelTurret(float x, float y);
     void CreateBullet() override;
+    void Draw() const override;
 };
 #endif // PLUGGUNTURRET_HPP

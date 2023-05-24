@@ -12,9 +12,10 @@ protected:
     PlayScene* getPlayScene();
 public:
 	int money;
+	bool want_base;
 	Engine::Sprite Base;
 	Engine::Sprite Turret;
-	TurretButton(std::string img, std::string imgIn, Engine::Sprite Base, Engine::Sprite Turret, float x, float y, int money);
+	TurretButton(std::string img, std::string imgIn, Engine::Sprite Base, Engine::Sprite Turret, float x, float y, int money, bool want_base);
 	void Update(float deltaTime) override;
 	void Draw() const override;
 };

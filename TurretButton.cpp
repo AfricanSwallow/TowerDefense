@@ -8,8 +8,8 @@
 PlayScene* TurretButton::getPlayScene() {
 	return dynamic_cast<PlayScene*>(Engine::GameEngine::GetInstance().GetActiveScene());
 }
-TurretButton::TurretButton(std::string img, std::string imgIn, Engine::Sprite Base, Engine::Sprite Turret, float x, float y, int money) :
-	ImageButton(img, imgIn, x, y), money(money), Base(Base), Turret(Turret) {
+TurretButton::TurretButton(std::string img, std::string imgIn, Engine::Sprite Base, Engine::Sprite Turret, float x, float y, int money, bool want_base) :
+	ImageButton(img, imgIn, x, y), money(money), Base(Base), Turret(Turret), want_base(want_base) {
 }
 void TurretButton::Update(float deltaTime) {
 	ImageButton::Update(deltaTime);
@@ -23,6 +23,7 @@ void TurretButton::Update(float deltaTime) {
 }
 void TurretButton::Draw() const {
 	ImageButton::Draw();
-	Base.Draw();
+	if (want_base)
+		Base.Draw();
 	Turret.Draw();
 }

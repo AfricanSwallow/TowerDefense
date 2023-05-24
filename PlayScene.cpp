@@ -432,11 +432,11 @@ void PlayScene::ConstructUI() {
 	UIGroup->AddNewObject(UIMoney = new Engine::Label(std::string("$") + std::to_string(money), "pirulen.ttf", 24, 1294, 48));
 	UIGroup->AddNewObject(UILives = new Engine::Label(std::string("Life ") + std::to_string(lives), "pirulen.ttf", 24, 1294, 88));
 	// Buttons
-	ConstructButton(0, "play/turret-6.png", PlugGunTurret::Price);
+	ConstructButton(0, "play/turret-6.png", PlugGunTurret::Price, true);
 	// TODO 3 (3/5): Create a button to support constructing the new turret.
-	ConstructButton(1, "play/turret-1.png", MachineGunTurret::Price);
-	ConstructButton(2, "play/elephant.png", ElephantTurret::Price);
-	ConstructButton(3, "play/shovel.png", ShovelTurret::Price);
+	ConstructButton(1, "play/turret-1.png", MachineGunTurret::Price, true);
+	ConstructButton(2, "play/elephant.png", ElephantTurret::Price, true);
+	ConstructButton(3, "play/shovel.png", ShovelTurret::Price, false);
     
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
@@ -446,7 +446,7 @@ void PlayScene::ConstructUI() {
 	UIGroup->AddNewObject(dangerIndicator);
 }
 
-void PlayScene::ConstructButton(int id, std::string sprite, int price) {
+void PlayScene::ConstructButton(int id, std::string sprite, int price, bool want_base) {
 	TurretButton* btn;
 	const int buttonSize = 76;
 	int row = id / 3;
@@ -455,7 +455,7 @@ void PlayScene::ConstructButton(int id, std::string sprite, int price) {
 	btn = new TurretButton("play/floor.png", "play/dirt.png",
 	Engine::Sprite("play/tower-base.png", 1294 + column * buttonSize, 136 + row * buttonSize, 0, 0, 0, 0),
 	Engine::Sprite(sprite, 1294 + column * buttonSize, 136 - 8 + row * buttonSize, 0, 0, 0, 0)
-	, 1294 + column * buttonSize, 136 + row * buttonSize, price);
+	, 1294 + column * buttonSize, 136 + row * buttonSize, price, want_base);
 	// Reference: Class Member Function Pointer and std::bind.
 	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, id));
 	UIGroup->AddNewControlObject(btn);

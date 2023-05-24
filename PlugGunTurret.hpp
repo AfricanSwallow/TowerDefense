@@ -43,4 +43,13 @@ public:
     void CreateBullet() override;
     void Draw() const override;
 };
+
+class ShifterTurret : public Turret {
+public:
+    static const int Price;
+    static const int ID;
+    ShifterTurret(float x, float y);
+    void CreateBullet() override;
+    void Draw() const override;
+};
 #endif // PLUGGUNTURRET_HPP

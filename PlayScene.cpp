@@ -351,6 +351,10 @@ void PlayScene::OnKeyDown(int keyCode) {
 		// Hotkey for new turret.
 		UIBtnClicked(3);
 	}
+	else if (keyCode == ALLEGRO_KEY_T) {
+		// Hotkey for new turret.
+		UIBtnClicked(4);
+	}
 	else if (keyCode >= ALLEGRO_KEY_0 && keyCode <= ALLEGRO_KEY_9) {
 		// Hotkey for Speed up.
 		SpeedMult = keyCode - ALLEGRO_KEY_0;
@@ -437,6 +441,7 @@ void PlayScene::ConstructUI() {
 	ConstructButton(1, "play/turret-1.png", MachineGunTurret::Price, true);
 	ConstructButton(2, "play/elephant.png", ElephantTurret::Price, true);
 	ConstructButton(3, "play/shovel.png", ShovelTurret::Price, false);
+	ConstructButton(4, "play/shifter.png", ShifterTurret::Price, false);
     
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
@@ -477,6 +482,9 @@ void PlayScene::UIBtnClicked(int id) {
 
 	if (id == 3) 
 		preview = new ShovelTurret(0, 0);
+
+	if (id == 4) 
+		preview = new ShifterTurret(0, 0);
 
 	if (!preview)
 		return;

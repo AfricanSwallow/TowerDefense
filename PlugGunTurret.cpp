@@ -100,3 +100,16 @@ void ElephantTurret::Update(float deltaTime) {
         bullet_num = 4;
     }
 }
+
+const int ShovelTurret::Price = 0;
+const int ShovelTurret::ID = 4;
+ShovelTurret::ShovelTurret(float x, float y) :
+    // TODO 3 (1/5): You can imitate the 2 files: 'PlugGunTurret.hpp', 'PlugGunTurret.cpp' to create a new turret.
+    Turret("play/tower-base.png", "play/shovel.png", x, y, 200, Price, 1.5, ID) {
+    // Move center downward, since we the turret head is slightly biased upward
+    Anchor.y += 8.0f / GetBitmapHeight();
+}
+
+void ShovelTurret::CreateBullet() {
+
+}

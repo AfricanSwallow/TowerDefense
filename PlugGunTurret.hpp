@@ -34,4 +34,12 @@ public:
     void CreateBullet() override;
     void Update(float deltaTime) override;
 };
+
+class ShovelTurret : public Turret {
+public:
+    static const int Price;
+    static const int ID;
+    ShovelTurret(float x, float y);
+    void CreateBullet() override;
+};
 #endif // PLUGGUNTURRET_HPP

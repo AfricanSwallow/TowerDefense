@@ -333,6 +333,10 @@ void PlayScene::OnKeyDown(int keyCode) {
 		// Hotkey for new turret.
 		UIBtnClicked(2);
 	}
+	else if (keyCode == ALLEGRO_KEY_R) {
+		// Hotkey for new turret.
+		UIBtnClicked(3);
+	}
 	else if (keyCode >= ALLEGRO_KEY_0 && keyCode <= ALLEGRO_KEY_9) {
 		// Hotkey for Speed up.
 		SpeedMult = keyCode - ALLEGRO_KEY_0;
@@ -418,6 +422,7 @@ void PlayScene::ConstructUI() {
 	// TODO 3 (3/5): Create a button to support constructing the new turret.
 	ConstructButton(1, "play/turret-1.png", MachineGunTurret::Price);
 	ConstructButton(2, "play/elephant.png", ElephantTurret::Price);
+	ConstructButton(3, "play/shovel.png", ShovelTurret::Price);
     
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
@@ -451,6 +456,9 @@ void PlayScene::UIBtnClicked(int id) {
 	
 	if (id == 2 && money >= ElephantTurret::Price) 
 		preview = new ElephantTurret(0, 0);	
+
+	if (id == 3) 
+		preview = new ShovelTurret(0, 0);
 
 	if (!preview)
 		return;

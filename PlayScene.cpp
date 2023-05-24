@@ -459,10 +459,14 @@ void PlayScene::ConstructUI() {
 
 void PlayScene::ConstructButton(int id, std::string sprite, int price) {
 	TurretButton* btn;
+	const int buttonSize = 76;
+	int row = id / 3;
+	int column = id % 3;
+
 	btn = new TurretButton("play/floor.png", "play/dirt.png",
-		Engine::Sprite("play/tower-base.png", 1294 + id * 76, 136, 0, 0, 0, 0),
-		Engine::Sprite(sprite, 1294 + id * 76, 136 - 8, 0, 0, 0, 0)
-		, 1294 + id * 76, 136, price);
+	Engine::Sprite("play/tower-base.png", 1294 + column * buttonSize, 136 + row * buttonSize, 0, 0, 0, 0),
+	Engine::Sprite(sprite, 1294 + column * buttonSize, 136 - 8 + row * buttonSize, 0, 0, 0, 0)
+	, 1294 + column * buttonSize, 136 + row * buttonSize, price);
 	// Reference: Class Member Function Pointer and std::bind.
 	btn->SetOnClickCallback(std::bind(&PlayScene::UIBtnClicked, this, id));
 	UIGroup->AddNewControlObject(btn);

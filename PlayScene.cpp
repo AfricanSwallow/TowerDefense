@@ -213,7 +213,6 @@ void PlayScene::OnMouseDown(int button, int mx, int my) {
 				}
 				// To keep responding when paused.
 				preview->Update(0);
-				
 				mapState[y][x] = TILE_FLOOR;
 				OnMouseMove(mx, my);
 				break;

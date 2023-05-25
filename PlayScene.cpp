@@ -202,15 +202,19 @@ void PlayScene::Draw() const {
 void PlayScene::OnMouseDown(int button, int mx, int my) {
 	const int x = mx / BlockSize;
 	const int y = my / BlockSize;
+	int turret_id = -1;
 	if ((button & 1) && !imgTarget->Visible && preview) {
 		for (auto& it : TowerGroup->GetObjects()) {
 			Turret* turret = dynamic_cast<Turret*>(it);
 			if (x == ((turret->Position.x - BlockSize / 2) / BlockSize) && y == ((turret->Position.y - BlockSize / 2) / BlockSize)) {
 				if (preview->id == ShovelTurret::ID) {
 					EarnMoney(turret->GetPrice() / 2);
-					preview->GetObjectIterator()->first = false;
-					UIGroup->RemoveObject(turret->GetObjectIterator());
+				} else if (preview->id == ShifterTurret::ID) {
+					std::cout << "change turret id" << std::endl;
+					turret_id = turret->id;
 				}
+				preview->GetObjectIterator()->first = false;
+				UIGroup->RemoveObject(turret->GetObjectIterator());
 				// To keep responding when paused.
 				preview->Update(0);
 				mapState[y][x] = TILE_FLOOR;
@@ -221,6 +225,9 @@ void PlayScene::OnMouseDown(int button, int mx, int my) {
 		// Cancel turret construct.
 		UIGroup->RemoveObject(preview->GetObjectIterator());
 		preview = nullptr;
+		if (turret_id != -1) {
+			UIBtnClicked(turret_id);
+		}
 	}
 	IScene::OnMouseDown(button, mx, my);
 }
@@ -228,7 +235,7 @@ void PlayScene::OnMouseMove(int mx, int my) {
 	IScene::OnMouseMove(mx, my);
 	const int x = mx / BlockSize;
 	const int y = my / BlockSize;
-	if (!preview || x < 0 || x >= MapWidth || y < 0 || y >= MapHeight || preview->id == ShovelTurret::ID) {
+	if (!preview || x < 0 || x >= MapWidth || y < 0 || y >= MapHeight || preview->id == ShovelTurret::ID || preview->id == ShifterTurret::ID) {
 		imgTarget->Visible = false;
 		return;
 	}
@@ -243,7 +250,7 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 	const int x = mx / BlockSize;
 	const int y = my / BlockSize;
 	if (button & 1) {
-		if (mapState[y][x] != TILE_OCCUPIED && preview->id != ShovelTurret::ID) {
+		if (mapState[y][x] != TILE_OCCUPIED && preview->id != ShovelTurret::ID && preview->id != ShifterTurret::ID) {
 			if (!preview)
 				return;
 			// Check if valid.

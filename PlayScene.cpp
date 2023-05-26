@@ -227,6 +227,7 @@ void PlayScene::OnMouseDown(int button, int mx, int my) {
 		preview = nullptr;
 		if (turret_id != -1) {
 			UIBtnClicked(turret_id);
+			preview->Shifted = true;
 		}
 	}
 	IScene::OnMouseDown(button, mx, my);
@@ -261,7 +262,9 @@ void PlayScene::OnMouseUp(int button, int mx, int my) {
 				return;
 			}
 			// Purchase.
-			EarnMoney(-preview->GetPrice());
+			if (!preview->Shifted) {
+				EarnMoney(-preview->GetPrice());
+			}
 			// Remove Preview.
 			preview->GetObjectIterator()->first = false;
 			UIGroup->RemoveObject(preview->GetObjectIterator());

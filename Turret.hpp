@@ -24,6 +24,7 @@ protected:
 public:
     bool Enabled = true;
     bool Preview = false;
+    bool Shifted = false;
     int id;
     int bullet_num = 0;
     Enemy* Target = nullptr;

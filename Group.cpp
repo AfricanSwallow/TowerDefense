@@ -1,5 +1,6 @@
 #include <stdexcept>
 #include <utility>
+#include <iostream>
 
 #include "Group.hpp"
 #include "IControl.hpp"
@@ -23,11 +24,11 @@ namespace Engine {
 	}
 	void Group::Clear() {
 		for (auto& it : objects) {
-			if (it.first) delete it.second;
+			if (it.first && it.second) delete it.second;
 		}
 		objects.clear();
 		for (auto& it : controls) {
-			if (it.first) delete it.second;
+			if (it.first && it.second) delete it.second;
 		}
 		controls.clear();
 	}
@@ -81,11 +82,15 @@ namespace Engine {
 		}
 	}
 	void Group::RemoveObject(std::list<std::pair<bool, IObject*>>::iterator it) {
-		if (it->first) delete it->second;
+		if (it->second)
+		std::cout << it->second << std::endl;
+		if (it->first && it->second) delete it->second;
 		objects.erase(it);
 	}
 	void Group::RemoveControl(std::list<std::pair<bool, IControl*>>::iterator it) {
-		if (it->first) delete it->second;
+		if (it->second)
+		std::cout << it->second << std::endl;
+		if (it->first && it->second) delete it->second;
 		controls.erase(it);
 	}
 	void Group::RemoveControlObject(std::list<std::pair<bool, IControl*>>::iterator ctrlIt, std::list<std::pair<bool, IObject*>>::iterator objIt) {

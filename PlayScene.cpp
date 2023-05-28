@@ -31,6 +31,9 @@
 #include "Turret.hpp"
 #include "TurretButton.hpp"
 #include "LOG.hpp"
+// Bullet
+#include "Bullet.hpp"
+#include "WoodBullet.hpp"
 
 bool PlayScene::DebugMode = false;
 const std::vector<Engine::Point> PlayScene::directions = { Engine::Point(-1, 0), Engine::Point(0, -1), Engine::Point(1, 0), Engine::Point(0, 1) };
@@ -214,6 +217,14 @@ void PlayScene::OnMouseDown(int button, int mx, int my) {
 					turret_id = turret->id;
 				}
 				preview->GetObjectIterator()->first = false;
+				if (turret->id == ElephantTurret::ID) {
+					for (auto& it : BulletGroup->GetObjects()) {
+						Bullet* bullet = dynamic_cast<Bullet*>(it);
+						if (bullet->parent == turret) {
+							UIGroup->RemoveObject(bullet->GetObjectIterator());
+						}
+					}
+				}
 				UIGroup->RemoveObject(turret->GetObjectIterator());
 				// To keep responding when paused.
 				preview->Update(0);

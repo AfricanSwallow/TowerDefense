@@ -69,24 +69,30 @@ void VirusBullet::OnExplode(Enemy* enemy) {
 }
 
 void VirusBullet::Update(float deltaTime) {
-	Sprite::Update(deltaTime);
 	PlayScene* scene = getPlayScene();
-	// Can be improved by Spatial Hash, Quad Tree, ...
-	// However simply loop through all enemies is enough for this program.
-	for (auto& it : scene->EnemyGroup->GetObjects()) {
-		Enemy* enemy = dynamic_cast<Enemy*>(it);
-		if (!enemy->Visible)
-			continue;
-		if (Engine::Collider::IsCircleOverlap(Position, CollisionRadius, enemy->Position, enemy->CollisionRadius)) {
-			OnExplode(enemy);
-			enemy->Hit(damage);
-			parent->bullet_num--;
-			getPlayScene()->BulletGroup->RemoveObject(objectIterator);
-			return;
-		}
+	int times = 1;
+	if (SpeedUp) {
+		times = 10;
 	}
+	for (int i = 0; i < times; i++) {
+		Sprite::Update(deltaTime);
+		// Can be improved by Spatial Hash, Quad Tree, ...
+		// However simply loop through all enemies is enough for this program.
+		for (auto& it : scene->EnemyGroup->GetObjects()) {
+			Enemy* enemy = dynamic_cast<Enemy*>(it);
+			if (!enemy->Visible)
+				continue;
+			if (Engine::Collider::IsCircleOverlap(Position, CollisionRadius, enemy->Position, enemy->CollisionRadius)) {
+				OnExplode(enemy);
+				enemy->Hit(damage);
+				parent->bullet_num--;
+				getPlayScene()->BulletGroup->RemoveObject(objectIterator);
+				return;
+			}
+		}
 
-	Engine::Point Acc = (parent->Position - this->Position).Normalize();
-	Acc = Acc * speed * speed / parent->CollisionRadius;
-	Velocity = Velocity + Acc * deltaTime;
+		Engine::Point Acc = (parent->Position - this->Position).Normalize();
+		Acc = Acc * speed * speed / parent->CollisionRadius;
+		Velocity = Velocity + Acc * deltaTime;
+	}
 }

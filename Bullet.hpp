@@ -20,6 +20,7 @@ protected:
 public:
 	Turret* parent;
 	Enemy* Target = nullptr;
+	bool SpeedUp = false;
 	explicit Bullet(std::string img, float speed, float damage, Engine::Point position, Engine::Point forwardDirection, float rotation, Turret* parent);
 	void Update(float deltaTime) override;
 };

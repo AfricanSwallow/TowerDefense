@@ -181,9 +181,29 @@ void PlayScene::Update(float deltaTime) {
 		enemy->Update(ticks);
 
 		// Test if turret should speed up
-		for (auto& it: TowerGroup->GetObjects()) {
-			Turret* turret = dynamic_cast<Turret*>(it);
-			// if (turret->id == )
+		for (auto& it_1: TowerGroup->GetObjects()) {
+			Turret* turret_1 = dynamic_cast<Turret*>(it_1);
+			if (turret_1->id == SpellTurret::ID) {
+				for (auto& it_2: TowerGroup->GetObjects()) {
+					Turret* turret_2 = dynamic_cast<Turret*>(it_2);
+					if (turret_1 != turret_2) {
+						if (Engine::Collider::IsCircleOverlap(turret_1->Position, turret_1->CollisionRadius, turret_2->Position, 0)) {
+							turret_2->SpeedUp = true;
+						}else {
+							turret_2->SpeedUp = false;
+						}
+					}
+				}
+
+				for (auto& it_3: BulletGroup->GetObjects()) {
+					Bullet* bullet = dynamic_cast<Bullet*>(it_3);
+					if (Engine::Collider::IsCircleOverlap(turret_1->Position, turret_1->CollisionRadius, bullet->Position, 0)) {
+						bullet->SpeedUp = true;
+					}else {
+						bullet->SpeedUp = false;
+					}
+				}
+			}
 		}
 	}
 	if (preview) {

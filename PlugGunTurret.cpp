@@ -94,17 +94,21 @@ void ElephantTurret::CreateBullet() {
 }
 
 void ElephantTurret::Update(float deltaTime) {
-	Sprite::Update(deltaTime);
-	PlayScene* scene = getPlayScene();
-	imgBase.Position = Position;
-	imgBase.Tint = Tint;
-	if (!Enabled)
-		return;
-	
-    if (bullet_num == 0) {
-        ElephantTurret::CreateBullet();
-        bullet_num = 4;
+    int times = 1;
+    if (SpeedUp) {
+        times = 10;
     }
+	
+	for (int i = 0; i < times; i++) {
+        Sprite::Update(deltaTime);
+        if (!Enabled)
+            return;
+        if (bullet_num == 0) {
+            ElephantTurret::CreateBullet();
+            bullet_num = 4;
+        }
+    }
+    
 }
 
 const int ShovelTurret::Price = 0;

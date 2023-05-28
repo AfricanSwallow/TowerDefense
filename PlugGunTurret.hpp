@@ -52,4 +52,14 @@ public:
     void CreateBullet() override;
     void Draw() const override;
 };
+
+class SpellTurret : public Turret {
+public:
+    static const int Price;
+    static const int ID;
+    SpellTurret(float x, float y);
+    void CreateBullet() override;
+    void Draw() const override;
+    void Update(float deltaTime) override;
+};
 #endif // PLUGGUNTURRET_HPP

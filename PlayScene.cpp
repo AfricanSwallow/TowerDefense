@@ -179,6 +179,12 @@ void PlayScene::Update(float deltaTime) {
 		enemy->UpdatePath(mapDistance);
 		// Compensate the time lost.
 		enemy->Update(ticks);
+
+		// Test if turret should speed up
+		for (auto& it: TowerGroup->GetObjects()) {
+			Turret* turret = dynamic_cast<Turret*>(it);
+			// if (turret->id == )
+		}
 	}
 	if (preview) {
 		preview->Position = Engine::GameEngine::GetInstance().GetMousePosition();
@@ -463,6 +469,7 @@ void PlayScene::ConstructUI() {
 	ConstructButton(2, "play/elephant.png", ElephantTurret::Price, true);
 	ConstructButton(3, "play/shovel.png", ShovelTurret::Price, false);
 	ConstructButton(4, "play/shifter.png", ShifterTurret::Price, false);
+	ConstructButton(5, "play/potion.png", SpellTurret::Price, false);
     
 	int w = Engine::GameEngine::GetInstance().GetScreenSize().x;
 	int h = Engine::GameEngine::GetInstance().GetScreenSize().y;
@@ -506,6 +513,9 @@ void PlayScene::UIBtnClicked(int id) {
 
 	if (id == 4) 
 		preview = new ShifterTurret(0, 0);
+
+	if (id == 5) 
+		preview = new SpellTurret(0, 0);
 
 	if (!preview)
 		return;

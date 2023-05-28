@@ -154,3 +154,31 @@ void ShifterTurret::Draw() const{
 		al_draw_circle(Position.x, Position.y, CollisionRadius, al_map_rgb(0, 0, 255), 2);
 	}
 }
+
+const int SpellTurret::Price = 0;
+const int SpellTurret::ID = 5;
+SpellTurret::SpellTurret(float x, float y) :
+    // TODO 3 (1/5): You can imitate the 2 files: 'PlugGunTurret.hpp', 'PlugGunTurret.cpp' to create a new turret.
+    Turret("play/tower-base.png", "play/potion.png", x, y, 200, Price, 1.5, ID) {
+    // Move center downward, since we the turret head is slightly biased upward
+    Anchor.y += 8.0f / GetBitmapHeight();
+}
+
+void SpellTurret::CreateBullet() {
+
+}
+
+void SpellTurret::Draw() const{
+    if (Preview) {
+		al_draw_filled_circle(Position.x, Position.y, CollisionRadius, al_map_rgba(0, 255, 0, 50));
+	}
+	Sprite::Draw();
+	if (PlayScene::DebugMode) {
+		// Draw target radius.
+		al_draw_circle(Position.x, Position.y, CollisionRadius, al_map_rgb(0, 0, 255), 2);
+	}
+}
+
+void SpellTurret::Update(float deltaTime) {
+	Sprite::Update(deltaTime);
+}
